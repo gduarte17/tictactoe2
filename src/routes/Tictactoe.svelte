@@ -4,7 +4,7 @@
   import { io } from "socket.io-client";
 
   let board = Array(9).fill("");
-  let currentPlayer = "X";
+  export let currentPlayer = "X";
   const socket = io("http://localhost:3000"); // Substitua pelo seu servidor real
 
   function makeMove(index) {

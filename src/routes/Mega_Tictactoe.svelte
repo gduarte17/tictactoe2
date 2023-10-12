@@ -118,10 +118,6 @@
     border-left: 4px solid #fff;
   }
 
-  .active {
-    /* background-color: red; */
-  }
-
   .inactive {
     pointer-events: none;
     opacity: 0.4;

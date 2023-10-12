@@ -5,6 +5,7 @@
 </script>
 
 <main>
+  <h1>Tic Tac Toe 2</h1>
   <MegaTictactoe />
   <!-- <h1>Hello {name}!</h1>
   <p>
