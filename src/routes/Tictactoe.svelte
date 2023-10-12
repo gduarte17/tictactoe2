@@ -4,36 +4,32 @@
   import { io } from "socket.io-client";
 
   let board = Array(9).fill("");
-  export let currentPlayer;
+  let currentPlayer = "X";
   const socket = io("http://localhost:3000"); // Substitua pelo seu servidor real
 
-  import { createEventDispatcher } from "svelte";
-  const dispatch = createEventDispatcher();
-
-  function sent_whereNext(value) {
-    dispatch("whereNext_Updated", value);
-  }
-
-  let winner = ""; // Armazena o vencedor (X, O, ou null)
-
   function makeMove(index) {
-    console.log("makeMove");
-    if (board[index] || winner) return; // Verifica se a célula já foi preenchida ou se já existe um vencedor
+    // Verifica se a célula já foi preenchida ou se já existe um vencedor
+    if (board[index] || winner) return;
 
+    // Preenche a célula com o jogador atual
     board[index] = currentPlayer;
-    socket.emit("makeMove", index);
+
+    // Indica onde deve ser a próxima jogada
     sent_whereNext(index.toString());
 
+    // Verifica se há um vencedor após cada jogada
     checkWinner();
+    // Alterna para o próximo jogador
+    currentPlayer = currentPlayer === "X" ? "O" : "X";
 
     // if (board[index] === "") {
-    //   console.log("makeMove - if called");
     //   board[index] = currentPlayer;
     //   socket.emit("makeMove", index); // Enviar movimento para o servidor
     //   currentPlayer = currentPlayer === "X" ? "O" : "X";
     // }
   }
 
+  // Função para verificar o vencedor
   function checkWinner() {
     const winningCombinations = [
       [0, 1, 2],
@@ -60,6 +56,13 @@
     }
   }
 
+  // Função para reiniciar o jogo
+  function resetGame() {
+    board = Array(9).fill("");
+    currentPlayer = "X";
+    winner = "";
+  }
+
   socket.on("updateBoard", (updatedBoard) => {
     board = updatedBoard;
   });
@@ -68,8 +71,6 @@
     // Lógica para inicializar o jogo
     // ...
   });
-
-  export let megaIndex;
 </script>
 
 <main>
