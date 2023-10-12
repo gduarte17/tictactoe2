@@ -48,7 +48,7 @@
     justify-content: center;
   }
 
-  .game {
+  .board {
     display: flex;
     flex-direction: column;
     align-items: center;
