@@ -1,5 +1,5 @@
 <script>
-  import Tictactoe from "./routes/Tictactoe.svelte";
+  import Tictactoe from "src/routes/Tictactoe.svelte";
 
   let board = Array(9); //.fill(TicTacToe); // Representa o estado do tabuleiro
   let currentPlayer = "X"; // Inicia com o jogador X
