@@ -8,11 +8,59 @@
   const socket = io("http://localhost:3000"); // Substitua pelo seu servidor real
 
   function makeMove(index) {
-    if (board[index] === "") {
-      board[index] = currentPlayer;
-      socket.emit("makeMove", index); // Enviar movimento para o servidor
-      currentPlayer = currentPlayer === "X" ? "O" : "X";
+    // Verifica se a célula já foi preenchida ou se já existe um vencedor
+    if (board[index] || winner) return;
+
+    // Preenche a célula com o jogador atual
+    board[index] = currentPlayer;
+
+    // Indica onde deve ser a próxima jogada
+    sent_whereNext(index.toString());
+
+    // Verifica se há um vencedor após cada jogada
+    checkWinner();
+    // Alterna para o próximo jogador
+    currentPlayer = currentPlayer === "X" ? "O" : "X";
+
+    // if (board[index] === "") {
+    //   board[index] = currentPlayer;
+    //   socket.emit("makeMove", index); // Enviar movimento para o servidor
+    //   currentPlayer = currentPlayer === "X" ? "O" : "X";
+    // }
+  }
+
+  // Função para verificar o vencedor
+  function checkWinner() {
+    const winningCombinations = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8], // Linhas
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8], // Colunas
+      [0, 4, 8],
+      [2, 4, 6], // Diagonais
+    ];
+
+    for (let combination of winningCombinations) {
+      const [a, b, c] = combination;
+      if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+        winner = board[a]; // Definir o vencedor
+        return;
+      }
     }
+
+    // Verifica se o tabuleiro está cheio (empate)
+    if (!board.includes("")) {
+      winner = "Empate";
+    }
+  }
+
+  // Função para reiniciar o jogo
+  function resetGame() {
+    board = Array(9).fill("");
+    currentPlayer = "X";
+    winner = "";
   }
 
   socket.on("updateBoard", (updatedBoard) => {
