@@ -1,5 +1,5 @@
 <script>
-  import TicTacToe from "./src/routes/TicTacToe.svelte";
+  import Tictactoe from "./routes/Tictactoe.svelte";
 
   let board = Array(9); //.fill(TicTacToe); // Representa o estado do tabuleiro
   let currentPlayer = "X"; // Inicia com o jogador X
@@ -51,7 +51,7 @@
           ? 'active'
           : 'inactive'} border-{index}"
       >
-        <TicTacToe
+        <Tictactoe
           {currentPlayer}
           on:whereNext_Updated={define_whereNext}
           megaIndex={index}
