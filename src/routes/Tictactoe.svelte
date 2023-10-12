@@ -39,6 +39,15 @@
 </main>
 
 <style>
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h1 {
+    margin-bottom: 60px;
+  }
   .cell {
     width: 75px;
     height: 75px;
