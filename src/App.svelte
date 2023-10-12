@@ -1,7 +1,7 @@
 <script>
   export let name;
 
-  import MegaTictactoe from "./src/routes/Mega_Tictactoe.svelte";
+  import MegaTictactoe from "./routes/Mega_Tictactoe.svelte";
 </script>
 
 <main>
