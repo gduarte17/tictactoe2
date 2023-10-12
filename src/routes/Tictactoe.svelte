@@ -27,12 +27,14 @@
 
 <main>
   <h1>Jogo da Velha</h1>
-  <div class="board">
-    {#each board as cell, index (index)}
-      <div class="cell border-{index}" on:click={() => makeMove(index)}>
-        {cell}
-      </div>
-    {/each}
+  <div class="game">
+    <div class="tictactoe-grid">
+      {#each board as cell, index (index)}
+        <div class="cell border-{index}" on:click={() => makeMove(index)}>
+          {cell}
+        </div>
+      {/each}
+    </div>
   </div>
 </main>
 
@@ -48,7 +50,7 @@
     justify-content: center;
   }
 
-  .board {
+  .game {
     display: flex;
     flex-direction: column;
     align-items: center;
