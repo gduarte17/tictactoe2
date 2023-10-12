@@ -14,28 +14,6 @@
 </main>
 
 <style>
-  body {
-    background-color: #1f1f1f;
-    margin: 0;
-    display: flex;
-    /* align-items: center; */
-    justify-content: center;
-    height: 100vh;
-  }
-  main {
-    text-align: center;
-    padding: 1em;
-    max-width: 240px;
-    /* margin: 0 auto; */
-
-    background-color: #1f1f1f;
-    margin: 0;
-    display: flex;
-    /* align-items: center; */
-    justify-content: center;
-    height: 100vh;
-  }
-
   h1 {
     color: #ff3e00;
     text-transform: uppercase;
