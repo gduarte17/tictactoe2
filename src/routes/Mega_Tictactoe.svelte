@@ -51,7 +51,7 @@
           ? 'active'
           : 'inactive'} border-{index}"
       >
-        <TicTacToe
+        <Tictactoe
           {currentPlayer}
           on:whereNext_Updated={define_whereNext}
           megaIndex={index}
