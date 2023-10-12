@@ -4,14 +4,59 @@
   import { io } from "socket.io-client";
 
   let board = Array(9).fill("");
-  let currentPlayer = "X";
+  export let currentPlayer;
   const socket = io("http://localhost:3000"); // Substitua pelo seu servidor real
 
+  import { createEventDispatcher } from "svelte";
+  const dispatch = createEventDispatcher();
+
+  function sent_whereNext(value) {
+    dispatch("whereNext_Updated", value);
+  }
+
+  let winner = ""; // Armazena o vencedor (X, O, ou null)
+
   function makeMove(index) {
-    if (board[index] === "") {
-      board[index] = currentPlayer;
-      socket.emit("makeMove", index); // Enviar movimento para o servidor
-      currentPlayer = currentPlayer === "X" ? "O" : "X";
+    console.log("makeMove");
+    if (board[index] || winner) return; // Verifica se a célula já foi preenchida ou se já existe um vencedor
+
+    board[index] = currentPlayer;
+    socket.emit("makeMove", index);
+    sent_whereNext(index.toString());
+
+    checkWinner();
+
+    // if (board[index] === "") {
+    //   console.log("makeMove - if called");
+    //   board[index] = currentPlayer;
+    //   socket.emit("makeMove", index); // Enviar movimento para o servidor
+    //   currentPlayer = currentPlayer === "X" ? "O" : "X";
+    // }
+  }
+
+  function checkWinner() {
+    const winningCombinations = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8], // Linhas
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8], // Colunas
+      [0, 4, 8],
+      [2, 4, 6], // Diagonais
+    ];
+
+    for (let combination of winningCombinations) {
+      const [a, b, c] = combination;
+      if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+        winner = board[a]; // Definir o vencedor
+        return;
+      }
+    }
+
+    // Verifica se o tabuleiro está cheio (empate)
+    if (!board.includes("")) {
+      winner = "Empate";
     }
   }
 
@@ -23,6 +68,8 @@
     // Lógica para inicializar o jogo
     // ...
   });
+
+  export let megaIndex;
 </script>
 
 <main>

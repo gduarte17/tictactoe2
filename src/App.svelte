@@ -1,11 +1,11 @@
 <script>
   export let name;
 
-  import Tictactoe from "./routes/Tictactoe.svelte";
+  import MegaTictactoe from "./routes/Mega_Tictactoe.svelte";
 </script>
 
 <main>
-  <Tictactoe />
+  <MegaTictactoe />
   <!-- <h1>Hello {name}!</h1>
   <p>
     Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn
